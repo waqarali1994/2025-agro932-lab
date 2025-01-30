@@ -5,6 +5,14 @@ author: "Jinliang Yang"
 output: html_document
 ---
 
+The date format "2025-01-30" follows the ISO 8601 standard, which is written as YYYY-MM-DD (Year-Month-Day).
+
+- YYYY = Year (2025)
+- MM = Month (01 = January)
+- DD = Day (30)
+This format is widely used in scientific, technical, and international contexts because it is unambiguous and easily sortable in chronological order. It is the preferred format for databases, programming, and data exchange standards.
+
+
 # Provide step-by-step instructions for setting up a github repo
 
 ## Step 1: Create a new repository on GitHub
