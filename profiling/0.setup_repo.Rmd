@@ -5,7 +5,7 @@ author: "Jinliang Yang"
 output: html_document
 ---
 
-# provide step-by-step instructions for setting up a github repo
+# Provide step-by-step instructions for setting up a github repo
 
 ## Step 1: Create a new repository on GitHub
 
@@ -21,11 +21,10 @@ output: html_document
 
 ## Step 2: Clone the Repository to Your Local Machine
 
-```{bash, eval-FALSE}
+```{bash eval=FALSE}
 git clone git@github.com:jyanglab/2025-agro932-lab.git
 ```
 
-Alternatively, you `Fork` the [repository](https://github.com/jyanglab/2025-agro932-lab) to your own account and then clone it to your local machine.
 
 ## Step 3: Add Files to the Repository
 
@@ -38,3 +37,10 @@ Creating a new R project in RStudio offers several advantages that streamline yo
 - Organized workspace with self-contained directories (or environment)
 - Improved reproducibility: relative paths, session management, etc.
 - Version control integration 
+
+
+-------------
+
+You `Fork` the [repository](https://github.com/jyanglab/2025-agro932-lab) to your own account and then clone it to your local machine.
+
+
