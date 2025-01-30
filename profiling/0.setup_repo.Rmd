@@ -1,0 +1,40 @@
+---
+title: "Set up a github repo"
+date: "2025-01-30"
+author: "Jinliang Yang"
+output: html_document
+---
+
+# provide step-by-step instructions for setting up a github repo
+
+## Step 1: Create a new repository on GitHub
+
+- Log in to your GitHub account.
+- Click the + icon in the top-right corner and select New repository.
+- Fill in the repository details:
+  - Repository name: Choose a name for your repo.
+  - Description: Add a short description (optional).
+  - Public/Private: Choose visibility (public or private).
+  - Initialize this repository with a README: Check this box to create an initial README file.
+
+- Click Create repository.
+
+## Step 2: Clone the Repository to Your Local Machine
+
+```{bash, eval-FALSE}
+git clone git@github.com:jyanglab/2025-agro932-lab.git
+```
+
+Alternatively, you `Fork` the [repository](https://github.com/jyanglab/2025-agro932-lab) to your own account and then clone it to your local machine.
+
+## Step 3: Add Files to the Repository
+
+copy and paste the current `dir system` to the cloned repo.
+- You can customize your own dir system using [ProjectTemplate](http://projecttemplate.net/architecture.html)
+
+## Step 4: Create R "New Project" using RStudio
+
+Creating a new R project in RStudio offers several advantages that streamline your workflow, improve organization, and enhance reproducibility.
+- Organized workspace with self-contained directories (or environment)
+- Improved reproducibility: relative paths, session management, etc.
+- Version control integration 
