@@ -26,6 +26,13 @@ Var(p_{t+1}) &= p_tq_t/2N
 
 ### First of all, let's implement the Wright-Fisher simulation in R
 
+### provide me some code for wright fisher simulation
+
+
+```{bash, eval=FALSE}
+cd ..
+```
+
 ```{r}
 # create a vector to store the allele count in each generation
 x <- vector()
@@ -33,8 +40,8 @@ x[1] <- 1 # for example, a new mutation occurs in the first generation
 
 # Start to loop over t generations
 # binomial sampling at each generation - determines allele count in next generations
-N <- 100 # number of diploid individuals
-t = 10 
+N <- 10 # number of diploid individuals
+t = 2 
 for (i in 2:t){ # t is the number of generations, starting with generation 2
     # calculate allele freq in the current generation
     k <- (x[i-1])/(2*N)
@@ -113,7 +120,7 @@ plot(sim1, type="o", pch=19, xlab="Generations", ylab="A1 allele count")
 
 # simulate for one time
 
-```{r}
+```{r, eval=FALSE}
 set.seed(1234587)
 sim1 <- wright_fisher(N=50, t=1000, A1=20)
 plot(sim1[1:100], type="o", pch=19, xlab="Generations", ylab="A1 allele count")
