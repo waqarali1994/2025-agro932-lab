@@ -147,3 +147,21 @@ plot(frq, type="l", ylim=c(0,1), col=3, xlab="Generations", ylab=expression(p(A[
 ```
 
 
+---------
+
+# simulation for 10,000 generations with 30 individuals for 1000 times
+
+```{r}
+set.seed(1234567)
+n=30
+a1=1
+t=10000
+frq <- wright_fisher(N=n, A1=a1, t=t)/(2*n)
+plot(frq, type="l", ylim=c(0,1), col=3, xlab="Generations", ylab=expression(p(A[1])))
+    for(u in 1:1000){
+      frq <- wright_fisher(N=n, A1=a1, t=t)/(2*n)
+      random <- sample(1:1000,1,replace=F)
+      randomcolor <- colors()[random] 
+      lines(frq,type="l",col=(randomcolor))
+    }
+```
