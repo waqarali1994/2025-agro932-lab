@@ -1,19 +1,10 @@
 ---
 title: "Compute Fst and XP-CLR"
 author: "Jinliang Yang"
-date: "Feb. 13, 2025"
-output:
-  xaringan::moon_reader:
-    css: ["default", "asset/unl-150.css"]
-    lib_dir: libs
-    nature:
-      highlightStyle: github
-      highlightLines: true
+date: "2025-02-13"
+output: html_document
 ---
 
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-```
 
 # Syncing a fork (from the web UI)
 
@@ -34,7 +25,7 @@ options(htmltools.dir.version = FALSE)
 
 ### Install a software on HCC
 
-```{bash eval=FALSE}
+```{bash, eval=FALSE}
 cd $HOME
 mkdir bin
 # https://github.com/lh3/wgsim
