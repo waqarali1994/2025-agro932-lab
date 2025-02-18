@@ -1,0 +1,14 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{bash, eval=FALSE}
+cd $HOME
+mkdir bin
+# https://github.com/lh3/wgsim
+git clone https://github.com/lh3/wgsim.git
+# compilation
+gcc -g -O2 -Wall -o wgsim wgsim.c -lz -lm
+```
+
