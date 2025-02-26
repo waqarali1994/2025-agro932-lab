@@ -158,7 +158,7 @@ wgsim first_chr.fa \
 ```{bash, eval=FALSE}
 for i in {1..20}
 do
-   wgsim first_chr.fa -e 0 -d 500 -N 50000 -1 100 -2 100 -r 0.1  -R 0 -X 0 l$i.read1.fq l$i.read2.fq
+   wgsim first_chr.fa -e 0 -d 500 -N 10000 -1 100 -2 100 -r 0.1  -R 0 -X 0 l$i.read1.fq l$i.read2.fq
 done
 ```
 
@@ -311,15 +311,18 @@ squeue | grep "YOUR USER ID"
 samtools faidx first_chr.fa
 ### Run `mpileup` to generate VCF format
 ls sorted_l*bam > bamlist.txt
-samtools mpileup -g -f first_chr.fa -b bamlist.txt > myraw.bcf
+bcftools mpileup -g -f first_chr.fa -b bamlist.txt > myraw.bcf
 bcftools call myraw.bcf -cv -Ob -o snps.bcf
+
+bcftools mpileup -Ou -f first_chr.fa -b bamlist.txt | bcftools call -mv -Ob -o snps.bcf
 ```
 
 #### exact SNP information
 
 ```{bash, eval=FALSE}
 ### Extract allele frequency at each position
-bcftools query -f '%CHROM %POS %AF1\n' snps.bcf > frq.txt
+bcftools view -h snps.bcf | grep INFO
+bcftools query -f '%CHROM %POS %AC\n' snps.bcf > frq.txt
 
 bcftools query -f '%CHROM %POS %REF %ALT [\t%GT]\n' snps.bcf > geno.txt
 ```
@@ -336,10 +339,10 @@ bcftools query -f '%CHROM %POS %REF %ALT [\t%GT]\n' snps.bcf > geno.txt
 
 ```{r, eval=FALSE}
 geno <- read.table("largedata/geno.txt", header=FALSE)
-names(geno) <- c("chr", "pos", "ref", "alt", "l1", "l2", "l3", "l4", "l5")
+names(geno)[1:4] <- c("chr", "pos", "ref", "alt")
 
 
-for(i in 5:9){
+for(i in 5:24){
   # replace slash and everything after it as nothing
   geno$newcol <- gsub("/.*", "", geno[,i] )
   # extract the line name
@@ -360,14 +363,15 @@ for(i in 5:9){
 
 #### Compute p1, p2, p
 
+geno[geno == "."] <- NA
 ```{r, eval=FALSE}
-geno$p <- apply(geno[, 10:19], 1, function(x) {sum(as.numeric(as.character(x)))})
+geno$p <- apply(geno[, 25:64], 1, function(x) { sum(x==0)/(sum(x==1) + sum(x=0))})
 geno$p <- geno$p/10
 
-geno$p1 <- apply(geno[, 10:15], 1, function(x) {sum(as.numeric(as.character(x)))})
+geno$p1 <- apply(geno[, 25:46], 1, function(x) {sum(as.numeric(as.character(x)))})
 geno$p1 <- geno$p1/6
 
-geno$p2 <- apply(geno[, 16:19], 1, function(x) {sum(as.numeric(as.character(x)))})
+geno$p2 <- apply(geno[, 47:64], 1, function(x) {sum(as.numeric(as.character(x)))})
 geno$p2 <- geno$p2/4
 ```
 
