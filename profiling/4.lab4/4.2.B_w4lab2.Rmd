@@ -336,6 +336,7 @@ bcftools query -f '%CHROM %POS %REF %ALT [\t%GT]\n' snps.bcf > geno.txt
 
 ```{r, eval=FALSE}
 geno <- read.table("largedata/geno.txt", header=FALSE)
+geno <- geno[, 1:9]
 names(geno) <- c("chr", "pos", "ref", "alt", "l1", "l2", "l3", "l4", "l5")
 
 
@@ -361,7 +362,8 @@ for(i in 5:9){
 #### Compute p1, p2, p
 
 ```{r, eval=FALSE}
-geno$p <- apply(geno[, 10:19], 1, function(x) {sum(as.numeric(as.character(x)))})
+geno[geno == "."] <- NA
+geno$p <- apply(geno[, 10:19], 1, function(x) { sum(x == 0, na.rm=T)})
 geno$p <- geno$p/10
 
 geno$p1 <- apply(geno[, 10:15], 1, function(x) {sum(as.numeric(as.character(x)))})
