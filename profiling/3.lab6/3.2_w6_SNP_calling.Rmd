@@ -22,7 +22,7 @@ output:
 #SBATCH -t 4:00:00
 #SBATCH --array=1-20  # Define an array job from 1 to 20
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4  # Adjust based on available resources
+#SBATCH --cpus-per-task=1  # Adjust based on available resources
 
 set -e
 set -u
@@ -44,8 +44,8 @@ fi
 # Step 2: Generate mpileup file
 bcftools mpileup -f chr1.fasta sorted_l${SAMPLE_ID}.bam > l${SAMPLE_ID}.mpileup
 
-# Step 3: Call SNPs
-bcftools call -m --ploidy 1 -Ob -o l${SAMPLE_ID}.bcf l${SAMPLE_ID}.mpileup
+# Step 3: Call SNPs with conserved calling and output everything
+bcftools call -c -Ob -o l${SAMPLE_ID}.bcf l${SAMPLE_ID}.mpileup
 
 # Step 4: Index the VCF file
 bcftools index l${SAMPLE_ID}.bcf
@@ -66,12 +66,15 @@ module load bcftools
 bcftools merge -Ob -o merged.bcf l{1..20}.bcf
 bcftools index merged.bcf
 
-# Filter for Biallelic SNPs
-bcftools view -m2 -M2 -v snps -Ob -o merged_biallelic_snps.bcf merged.bcf
-
-
 # get a summary of the VCF file
-bcftools stats  merged_biallelic_snps.bcf > vcf_summary.txt
+bcftools stats merged.bcf > bcf_summary.txt
+
+# Filter for Biallelic SNPs
+bcftools view merged.bcf -m2 -M2 -v snps -Ob -o merged_biallelic_snps.bcf
+
+
+# get a summary again
+bcftools stats  merged_biallelic_snps.bcf > bcf_sum2.txt
 ```
 
 
@@ -91,12 +94,14 @@ Genotypes (GT) for each sample
 # Convert VCF to PLINK format
 
 ```{bash}
-module laod plink/1.90
-plink --bcf merged_biallelic_snps.bcf --allow-extra-chr --make-bed --out merged_variants
+module load plink/1.90
+
+plink --bcf merged_biallelic_snps.bcf --allow-extra-chr --set-missing-var-ids @:# --make-bed --out merged_variants
 
 # move merged files to a new folder
 mkdir merged
-mve merged_varaints* merged/
+mv merged_varaints* merged/
+cd merged/
 
 # get the missing data and maf PCA
 plink --bfile merged_variants --allow-extra-chr --missing --freq --pca 20 --out merged_variants
