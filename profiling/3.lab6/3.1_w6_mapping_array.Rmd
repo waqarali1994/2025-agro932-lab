@@ -1,7 +1,7 @@
 ---
-title: "Compute Fst and XP-CLR"
+title: "Compute Fst using sorghum and its genomic features"
 author: "Jinliang Yang"
-date: "2025-02-18"
+date: "2025-02-26"
 output:
   html_document:
     df_print: paged
@@ -92,11 +92,12 @@ wgsim lambda.fa -e 0 -d 500 -N 5000 -1 100 -2 100 -r 0.01  \
 - Domesticated sunflower: [Helianthus annuus](https://plants.ensembl.org/Helianthus_annuus/Info/Index)
 - Maize: [Zea mays](https://plants.ensembl.org/Zea_mays/Info/Index?db=core)
 - Soybean: [Glycine max](http://plants.ensembl.org/Glycine_max/Info/Index)
+- Sorghum: [Sorghumbase.org](https://ftp.sorghumbase.org/)
 
 --
 
 ## Important info
-- Version
+- Version: release-current (https://ftp.sorghumbase.org/release-current/fasta/sorghum_bicolorv5/)
 - Gene annotation: GFF3
 
 ---
@@ -109,56 +110,57 @@ Maize [reference genome](https://plants.ensembl.org/Zea_mays/Info/Index)
 
 ```{bash, eval=FALSE}
 cd largedata
-mkdir lab4
-cd lab4
+mkdir sorghum
+cd sorghum
 ```
 
 
 #### Then use `wget` to download the reference genome:
 
 ```{bash, eval=FALSE}
-wget https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-60/fasta/zea_mays/dna/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.dna.nonchromosomal.fa.gz
+wget https://ftp.sorghumbase.org/release-current/fasta/sorghum_bicolorv5/dna/Sorghum_bicolorv5.Sb-BTX623-REFERENCE-JGI-5.1.dna.toplevel.fa.gz
 
 ### then unzip it
-gunzip Zea_mays.Zm-B73-REFERENCE-NAM-5.0.dna.nonchromosomal.fa.gz
+gunzip Sorghum_bicolorv5.Sb-BTX623-REFERENCE-JGI-5.1.dna.toplevel.fa.gz
 
 ### then check the file with less
-less Zea_mays.Zm-B73-REFERENCE-NAM-5.0.dna.nonchromosomal.fa | grep ">"
-# extracts the first record into the file
-awk '/^>/ {if (found++) exit} {print}' Zea_mays.Zm-B73-REFERENCE-NAM-5.0.dna.nonchromosomal.fa > first_chr.fa
+less Sorghum_bicolorv5.Sb-BTX623-REFERENCE-JGI-5.1.dna.toplevel.fa | grep ">"
+
+# extracts the first 100k from chr1 of the genome 
+module load seqtk
+
+seqtk subseq Sorghum_bicolorv5.Sb-BTX623-REFERENCE-JGI-5.1.dna.toplevel.fa <(echo -e "1\t0\t100000") > chr1.fasta
+
 ```
 
----
+`<(echo -e "1\t0\t100000")`: Specifies the chromosome (1) and range (1-100000).
 
-#### Type in the following command:
+
+#### next step, let's get the GFF file
 
 ```{bash, eval=FALSE}
-wgsim first_chr.fa \
--e 0 -d 500 -N 5000 -1 100 -2 100 -r 0.01  \
--R 0 -X 0 -S 1234567 l1.read1.fq l1.read2.fq
+wget https://ftp.sorghumbase.org/release-current/gff3/sorghum_bicolorv5/Sorghum_bicolorv5.Sb-BTX623-REFERENCE-JGI-5.1.gff3.gz
+
+### then unzip it
+gunzip Sorghum_bicolorv5.Sb-BTX623-REFERENCE-JGI-5.1.gff3.gz
+
+### then check the file with less
+less Sorghum_bicolorv5.Sb-BTX623-REFERENCE-JGI-5.1.gff3
+
 ```
 
-- Reference (about 700k)
-  - `first_chr.fa`
-- 20x coverage
-  - `N 5000`
-- PE 100bp
-  - `-1 100 -2 100`
-- Only SNP no Indel
-  - `-R 0 -X 0`
-- Simulate Mutations 
-  - `-r 0.01`
+
 
 ---
 
 # NGS data simulation using `wgsim`
 
-## simulate 20 individals
+## simulate 20 individals x10 coverage
 
 ```{bash, eval=FALSE}
 for i in {1..20}
 do
-   wgsim first_chr.fa -e 0 -d 500 -N 50000 -1 100 -2 100 -r 0.1  -R 0 -X 0 l$i.read1.fq l$i.read2.fq
+   wgsim chr1.fasta -e 0 -d 500 -N 10000 -1 100 -2 100 -r 0.1 -S 123 -R 0 -X 0 -h l$i.read1.fq l$i.read2.fq
 done
 ```
 
@@ -169,7 +171,7 @@ done
 
 ```{bash, eval=FALSE}
 wc -l l1.read1.fq 
-# suppose to be 200,000 lines = 50,000 reads
+# suppose to be 40000 lines = 10,000 reads
 ```
 
 ---
@@ -196,14 +198,14 @@ wc -l l1.read1.fq
 ```{bash, eval=FALSE}
 module load bwa samtools bcftools
 # index the reference genome
-bwa index first_chr.fa
+bwa index chr1.fasta
 ```
 
 #### Do alignment for 10 individuals using bash loop:
 
 ```{bash, eval=FALSE}
 # using bwa mem to align the reads to the reference genome 
-for i in {1..20}; do bwa mem first_chr.fa l$i.read1.fq l$i.read2.fq | samtools view -bSh - > l$i.bam; done
+for i in {1..20}; do bwa mem chr1.fasta l$i.read1.fq l$i.read2.fq | samtools view -bSh - > l$i.bam; done
 # sort
 for i in *.bam; do samtools sort $i -o sorted_$i; done
 # index them
@@ -262,25 +264,16 @@ set -u
 
 ---
 
-## An Example Slurm Batch Script Header
+## Let's do this in Rstudio on your labtop
 
-```{bash, eval=FALSE}
-cd slurm-script
-vi my_theta.sh
-i # insert text
-:sq # quit vi editor
-```
-
-- Copy the above header to a `.sh` file and make appropriate modifications
-
-- Insert the following:
+insert the following into a shell script, for example `sorghum_sim.sh`
 
 ```{bash, eval=FALSE}
 # module load bwa samtools
 # cd largedata/lab4/
 
 # alignment
-for i in {1..20}; do bwa mem first_chr.fa l$i.read1.fq l$i.read2.fq | samtools view -bSh - > l$i.bam; done
+for i in {1..20}; do bwa mem chr1.fasta l$i.read1.fq l$i.read2.fq | samtools view -bSh - > l$i.bam; done
 # sort
 for i in *.bam; do samtools sort $i -o sorted_$i; done
 # index them
@@ -292,7 +285,7 @@ for i in sorted*.bam; do samtools index $i; done
 - submit the job via `sbatch`:
 
 ```{bash, eval=FALSE}
-sbatch --licenses=common --ntasks=2 --mem=10G slurm-script/my_theta.sh
+sbatch --licenses=common --ntasks=8 --mem=60G slurm-script/sorghum_sim.sh
 
 ## check your job status
 squeue | grep "YOUR USER ID"
@@ -301,101 +294,51 @@ squeue | grep "YOUR USER ID"
 
 ---
 
-# A procedure to calculate $\theta$ values
+## We can also submit a job array to run mapping in parallel
 
-### 2. Obtain the SNP calls  with `samtools`
+```{bash}
+#!/bin/bash -l
+#SBATCH -D /mnt/nrdstor/jyanglab/jyang21/2025-agro932-lab
+#SBATCH -o /mnt/nrdstor/jyanglab/jyang21/2025-agro932-lab/slurm-log/stdout-%A_%a.txt
+#SBATCH -e /mnt/nrdstor/jyanglab/jyang21/2025-agro932-lab/slurm-log/stderr-%A_%a.txt
+#SBATCH -J mapping
+#SBATCH -t 2:00:00
+#SBATCH --array=1-20  # Define an array job from 1 to 20
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4  # Adjust based on available resources
 
+set -e
+set -u
+
+# Load required modules
+module load bwa samtools bcftools
+
+# Change to the working directory
+cd largedata/sorghum
+
+# Define sample ID from the SLURM array index
+SAMPLE_ID=$SLURM_ARRAY_TASK_ID
+
+# Run BWA alignment for the corresponding sample
+bwa mem chr1.fasta l${SAMPLE_ID}.read1.fq l${SAMPLE_ID}.read2.fq | samtools view -bSh - > l${SAMPLE_ID}.bam
+
+# Sort the BAM file
+samtools sort l${SAMPLE_ID}.bam -o sorted_l${SAMPLE_ID}.bam
+
+# Index the sorted BAM file
+samtools index sorted_l${SAMPLE_ID}.bam
+
+```
+
+
+submit job using the below code:
 
 ```{bash, eval=FALSE}
-### index the genome assembly
-samtools faidx first_chr.fa
-### Run `mpileup` to generate VCF format
-ls sorted_l*bam > bamlist.txt
-samtools mpileup -g -f first_chr.fa -b bamlist.txt > myraw.bcf
-bcftools call myraw.bcf -cv -Ob -o snps.bcf
+sbatch --licenses=common slurm-script/sorghum_array.sh
 ```
 
-#### exact SNP information
-
-```{bash, eval=FALSE}
-### Extract allele frequency at each position
-bcftools query -f '%CHROM %POS %AF1\n' snps.bcf > frq.txt
-
-bcftools query -f '%CHROM %POS %REF %ALT [\t%GT]\n' snps.bcf > geno.txt
-```
-
-- Print chromosome, position, ref allele and the first alternate allele
-- %TGT: Translated genotype (e.g. C/A)
-- %TAG{INT}: Curly brackets to print a subfield (e.g. INFO/TAG{1}, the indexes are 0-based)
-
----
-# A procedure to calculate $\theta$ values
-
-### 3. Calculate the Fst value for each site and visualize the results
 
 
-```{r, eval=FALSE}
-geno <- read.table("largedata/geno.txt", header=FALSE)
-names(geno) <- c("chr", "pos", "ref", "alt", "l1", "l2", "l3", "l4", "l5")
-
-
-for(i in 5:9){
-  # replace slash and everything after it as nothing
-  geno$newcol <- gsub("/.*", "", geno[,i] )
-  # extract the line name
-  nm <- names(geno)[i]
-  # assign name for this allele
-  names(geno)[ncol(geno)] <- paste0(nm, sep="_a1")
-  
-  geno$newcol <- gsub(".*/", "", geno[,i] )
-  names(geno)[ncol(geno)] <- paste0(nm, sep="_a2")
-}
-```
-
----
-
-# A procedure to calculate $\theta$ values
-
-### 3. Calculate the Fst value for each site and visualize the results
-
-#### Compute p1, p2, p
-
-```{r, eval=FALSE}
-geno$p <- apply(geno[, 10:19], 1, function(x) {sum(as.numeric(as.character(x)))})
-geno$p <- geno$p/10
-
-geno$p1 <- apply(geno[, 10:15], 1, function(x) {sum(as.numeric(as.character(x)))})
-geno$p1 <- geno$p1/6
-
-geno$p2 <- apply(geno[, 16:19], 1, function(x) {sum(as.numeric(as.character(x)))})
-geno$p2 <- geno$p2/4
-```
-
-Then finally,
-
-```{r, eval=FALSE}
-geno$fst <- with(geno, ((p1-p)^2 + (p2-p)^2)/(2*p*(1-p)) )
-```
-
-Output the Fst results
-
-
-```{r, eval=FALSE}
-write.table(geno, "cache/fst.csv", sep=",", row.names = FALSE, quote=FALSE)
-```
-
----
-# A procedure to calculate $\theta$ values
-
-### 3. Calculate the Fst value for each site and visualize the results
-
-#### Visualize the results on my local computer
-
-```{r, eval=FALSE}
-fst <- read.csv("cache/fst.csv")
-
-plot(fst$pos, fst$fst, xlab="Physical position", ylab="Fst value", main="")
-```
 
 
 
