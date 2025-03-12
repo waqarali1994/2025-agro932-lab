@@ -1,0 +1,17 @@
+---
+title: "Compute Fst using sorghum and its genomic features"
+author: "Jinliang Yang"
+date: "2025-02-26"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+---
+
+
+# A procedure to calculate $\theta$ values
+
+
+
+
+
