@@ -83,4 +83,27 @@ plot(d$tW/d$nSites,d$tP/d$nSites,xlab="Watterson Theta",ylab="Pairwise Theta",pc
 plot(d$WinCenter/1000, d$tP/d$nSites, xlab = "Chr1 (kp)", ylab="Pairwise Theta")
 ```
 
+```{r}
+plot(d$WinCenter/1000, d$Tajima/d$nSites, xlab = "Chr1 (kp)", ylab="Tajima's D")
+```
+
+### an example about how to interpret the results in text
+
+#### 1. First, provide a brief description of the analysis, but include details such as data, software, and parameters in the 'Materials and Methods' section.
+
+In this simulated experiment, we generated 10 individuals from each population (see M&M for details).
+
+#### 2. Begin by describing the results, and if necessary, provide a brief reminder or explanation to help educate the reader.
+
+Tajima's D, a measure of the site frequency spectrum (SFS) distribution between two populations, is expected to be around 0 if a genomic region is neutral. As shown in the figure, most of the sites have values close to 0, consistent with our simulation, which did not include any sites under selection.
+
+#### 3. Highlight any exciting discoveries.
+
+However, we observed that in the 10 kb region, the values of Tajima's D are slightly above 0, with an average of approximately 0.03. A positive Tajima's D can indicate balancing selection, as it suggests higher-than-expected nucleotide diversity. This typically occurs because both alleles have been maintained at the balanced sites in the population, allowing more mutations to accumulate. 
+
+#### 4. Offer alternative explanations, can be backed up by other's studies
+
+However, this slight elevation above 0 is more likely caused by a high mutation rate in the simulation, consistent with previous studies (citation).
+
+
 
