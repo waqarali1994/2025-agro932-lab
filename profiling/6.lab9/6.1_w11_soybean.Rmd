@@ -1,13 +1,13 @@
 ---
 title: "Compute genetic variances"
 author: "Jinliang Yang"
-date: "04-1-2025"
-output: NULL
+date: "04-10-2025"
+output: html_document
 ---
 
 ## Path Normalization
 
-````{r setup, echo=FALSE}
+```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE) 
 knitr::opts_knit$set(root.dir=normalizePath('..//..//')) 
 #library(tidyverse)
@@ -87,6 +87,7 @@ df <- gather(d, key="Env", value="yield", 2:4)
 https://rstudio.github.io/cheatsheets/html/data-visualization.html
 
 ```{r, eval=FALSE}
+#install.packages("ggplot2")
 library(ggplot2)
 ggplot(df, aes(x=yield, color=rep, fill=rep)) +
     geom_histogram(aes(y=..density..), position="identity", alpha=0.5)+
@@ -102,7 +103,7 @@ ggplot(df, aes(x=yield, color=rep, fill=rep)) +
           axis.title=element_text(size=18, face="bold"),
           )
 ```
-```{r}
+```{r, eval=FALSE}
 ggplot(df, aes(x=yield, color=rep, fill=rep)) +
     geom_histogram(aes(y=..density..), position="identity", alpha=0.5)+
     geom_density(alpha=0.6)+
@@ -124,7 +125,7 @@ ggplot(df, aes(x=yield, color=rep, fill=rep)) +
 
 https://github.com/EmilHvitfeldt/r-color-palettes
 
-```{r}
+```{r, eval=FALSE}
 p1 <- ggplot(df, aes(x=yield, color=rep, fill=rep)) +
     geom_histogram(aes(y=..density..), position="identity", alpha=0.5)+
     geom_density(alpha=0.6)+
@@ -363,7 +364,7 @@ p_{ijk} = \mu + g_i + t_j + g_i \times t_j +r_k + e_{ijk}
 
 --
 
-```{r, eval=FALSE}
+```{r, eval=T}
 cc <- read.csv("data/ppj220030-sup-0002-tables1.csv")
 table(cc$date)
 
@@ -372,7 +373,7 @@ table(cc$date)
 
 # bean plot over dates
 
-```{r}
+```{r, eval=F}
 # Plot
 cc <- subset(cc, !is.na(date))
 cc$date <- factor(cc$date, levels = c("July6", "Aug12", "Aug14", "Aug16", "Aug20", "Aug22", "Aug23", "Aug26", "Sept1", "Sept3", "Sept5"))

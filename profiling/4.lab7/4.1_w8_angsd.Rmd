@@ -1,12 +1,18 @@
 ---
 title: "Angsd and XP-CLR"
-author: "Jinliang Yang"
+author: "Gen Xu"
 date: "2025-03-13"
 output:
   html_document:
     df_print: paged
   word_document: default
 ---
+## Normalize the path:
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) 
+knitr::opts_knit$set(root.dir=normalizePath('../../')) 
+```
 
 
 # A procedure to calculate $\theta$ values using ANGSD
@@ -28,7 +34,7 @@ srun --qos=short --nodes=1 --licenses=common --ntasks=1 --mem 6G --licenses=comm
 - Step1: Index Your Reference Genome
 
 ```{bash,eval=F}
-module load samtools angsd
+module load samtools/1.20 angsd/0.937
 cd largedata/sorghum/sorted_bam
 samtools faidx chr1.fasta
 ```
@@ -75,7 +81,7 @@ cp sorghum.thetasWindow5kb_1kb.pestPG ../../../cache/
 ### plot results
 
 ```{r,eval=F}
-library(data.table)
+library("data.table")
 d <- fread("cache/sorghum.thetasWindow5kb_1kb.pestPG", header=T, data.table=F)
 
 pi=d$tP/d$nSites
@@ -91,11 +97,11 @@ plot(d$WinCenter/1000, d$Tajima/d$nSites, xlab = "Chr1 (kp)", ylab="Tajima's D")
 
 #### 1. First, provide a brief description of the analysis, but include details such as data, software, and parameters in the 'Materials and Methods' section.
 
-In this simulated experiment, we generated 10 individuals from each population (see M&M for details).
+In this simulated experiment, we generated 10 individuals from two populations (see M&M for details).
 
 #### 2. Begin by describing the results, and if necessary, provide a brief reminder or explanation to help educate the reader.
 
-Tajima's D, a measure of the site frequency spectrum (SFS) distribution between two populations, is expected to be around 0 if a genomic region is neutral. As shown in the figure, most of the sites have values close to 0, consistent with our simulation, which did not include any sites under selection.
+Tajima's D, a measure of the site frequency spectrum (SFS) distribution between two populations, is expected to be around 0 if a genomic region is neutral (cite). As shown in the figure, most of the sites have values close to 0, consistent with our simulation, which did not include any sites under selection.
 
 #### 3. Highlight any exciting discoveries.
 

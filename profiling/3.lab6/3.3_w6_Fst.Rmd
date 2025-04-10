@@ -48,10 +48,10 @@ for(i in 7:26){
 geno[geno == "."] <- NA
 names(geno)
 
-geno$p <- apply(geno[, 25:66], 1, function(x) {sum( x == 0) })
+geno$p <- apply(geno[, 27:66], 1, function(x) {sum( x == 0) })
 geno$p <- geno$p/40
 
-geno$p1 <- apply(geno[, 25:46], 1, function(x) {sum(x ==0 )})
+geno$p1 <- apply(geno[, 27:46], 1, function(x) {sum(x ==0 )})
 geno$p1 <- geno$p1/20
 
 geno$p2 <- apply(geno[, 47:66], 1, function(x) {sum(x ==0) })
