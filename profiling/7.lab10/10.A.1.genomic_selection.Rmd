@@ -3,8 +3,10 @@ title: "Genomic Selection"
 author: "Jinliang Yang"
 date: "04-24-2025"
 output:
+  word_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 ## Path Normalization
