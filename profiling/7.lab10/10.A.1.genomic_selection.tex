@@ -1,0 +1,746 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Genomic Selection},
+  pdfauthor={Jinliang Yang},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Genomic Selection}
+\author{Jinliang Yang}
+\date{04-24-2025}
+
+\begin{document}
+\maketitle
+
+\subsection{Path Normalization}\label{path-normalization}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A real world example: Loblolly pine
+data}\label{a-real-world-example-loblolly-pine-data}
+
+In this example, we will use the breeding values of crown width across
+the planting beds at age 6 (CWAC6).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# read phenotype and SNP files}
+\NormalTok{pheno\_file }\OtherTok{\textless{}{-}} \StringTok{"https://jyanglab.com/img/data/DATA\_nassau\_age6\_CWAC.csv"}
+\NormalTok{geno\_file }\OtherTok{\textless{}{-}} \StringTok{"https://jyanglab.com/img/data/Snp\_Data.csv"}
+
+\NormalTok{pheno }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(pheno\_file, }\AttributeTok{header=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{stringsAsFactors =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(pheno}\SpecialCharTok{$}\NormalTok{Derregressed\_BV, }\AttributeTok{main=}\StringTok{"Crown width at Age 6"}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"width"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{10.A.1.genomic_selection_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# geno[1:10, 1:10]}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Loblolly pine data}\label{loblolly-pine-data}
+
+\subsubsection{Remove missing
+phenotypes}\label{remove-missing-phenotypes}
+
+There are some accessions containing no phenotype. We need to remove
+these accessions first.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{na.index }\OtherTok{\textless{}{-}}  \FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(pheno}\SpecialCharTok{$}\NormalTok{Derregressed\_BV))}
+\CommentTok{\# length(na.index)}
+\NormalTok{pheno }\OtherTok{\textless{}{-}}\NormalTok{ pheno[}\SpecialCharTok{{-}}\NormalTok{na.index, ]}
+
+\CommentTok{\# phenotypes }
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ pheno}\SpecialCharTok{$}\NormalTok{Derregressed\_BV}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(y, }\AttributeTok{ncol=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Genotype data: SNP quality
+control}\label{genotype-data-snp-quality-control}
+
+In the \texttt{geno} matrix, row indicates individual, column indicates
+SNPs.
+
+\subsubsection{Missingness and MAF}\label{missingness-and-maf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{geno }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(geno\_file, }\AttributeTok{header=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{stringsAsFactors =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{dim}\NormalTok{(geno)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  926 4854
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Keep genotypes for these remaining lines}
+\NormalTok{geno }\OtherTok{\textless{}{-}}\NormalTok{ geno[geno}\SpecialCharTok{$}\NormalTok{Genotype }\SpecialCharTok{\%in\%}\NormalTok{ pheno}\SpecialCharTok{$}\NormalTok{Genotype, ]}
+\CommentTok{\# markers }
+\NormalTok{geno }\OtherTok{\textless{}{-}}\NormalTok{ geno[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{] }\CommentTok{\# 861 x 4853}
+\NormalTok{geno[geno }\SpecialCharTok{==} \SpecialCharTok{{-}}\DecValTok{9}\NormalTok{] }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+
+\CommentTok{\# missing rate}
+\NormalTok{missing }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(geno, }\DecValTok{2}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x)\{}\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x))}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(x)\})}
+\CommentTok{\# minor allele frequency}
+\NormalTok{maf }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(geno, }\DecValTok{2}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x)\{}
+\NormalTok{  frq }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}\SpecialCharTok{/}\DecValTok{2} \CommentTok{\# 1 allele}
+  \FunctionTok{return}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(frq }\SpecialCharTok{\textgreater{}} \FloatTok{0.5}\NormalTok{, }\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{frq, frq))}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Genotype data: SNP quality
+control}\label{genotype-data-snp-quality-control-1}
+
+In the \texttt{geno} matrix, row indicates individual, column indicates
+SNPs.
+
+\paragraph{Plot the results}\label{plot-the-results}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(missing, }\AttributeTok{breaks=}\DecValTok{100}\NormalTok{, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"SNP Missing rate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{10.A.1.genomic_selection_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(maf, }\AttributeTok{breaks=}\DecValTok{100}\NormalTok{, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"Minor Allele Freq"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{10.A.1.genomic_selection_files/figure-latex/unnamed-chunk-4-2.pdf}
+
+Removing SNPs with high missing rate (missingness \textgreater{} 0.2)
+and low MAF (MAF \textless{} 0.05)
+
+\begin{itemize}
+\tightlist
+\item
+  Question: How many markers are removed?
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{idx1 }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(missing }\SpecialCharTok{\textgreater{}} \FloatTok{0.2}\NormalTok{) }\CommentTok{\#154}
+\NormalTok{idx2 }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(maf }\SpecialCharTok{\textless{}} \FloatTok{0.05}\NormalTok{) }\CommentTok{\#1647}
+\NormalTok{idx }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(}\FunctionTok{c}\NormalTok{(idx1, idx2)) }\CommentTok{\#1784}
+
+\NormalTok{geno2 }\OtherTok{\textless{}{-}}\NormalTok{ geno[, }\SpecialCharTok{{-}}\NormalTok{idx]}
+\FunctionTok{dim}\NormalTok{(geno2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  861 3069
+\end{verbatim}
+
+\subsubsection{Missing marker
+imputation}\label{missing-marker-imputation}
+
+Replace missing marker genotypes with \textbf{mean values}. Then store
+the marker genotypes in a matrix object \texttt{Z}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\AttributeTok{ncol=}\FunctionTok{ncol}\NormalTok{(geno2), }\AttributeTok{nrow=}\FunctionTok{nrow}\NormalTok{(geno2))}
+\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(geno2))\{}
+  \CommentTok{\#cat("j = ", j, \textquotesingle{}\textbackslash{}n\textquotesingle{})}
+\NormalTok{  Z[,j] }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(geno2[,j]), }\FunctionTok{mean}\NormalTok{(geno2[,j], }\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{), geno2[,j])}
+\NormalTok{\}}
+\CommentTok{\# sum(is.na(Z))}
+\FunctionTok{write.table}\NormalTok{(Z, }\StringTok{"data/Z.txt"}\NormalTok{, }\AttributeTok{sep=}\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{"}\NormalTok{, }\AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{, }
+            \AttributeTok{col.names=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{quote=}\ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Genomic relationship}\label{genomic-relationship}
+
+\subsubsection{SNP Matrix
+standardization}\label{snp-matrix-standardization}
+
+Standardize the genotype matrix to have a mean of zero and variance of
+one. Save this matrix as \texttt{Zs}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Zs }\OtherTok{\textless{}{-}} \FunctionTok{scale}\NormalTok{(Z, }\AttributeTok{center =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{scale =} \ConstantTok{TRUE}\NormalTok{)}
+\CommentTok{\# dimensions }
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(Zs)}
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{ncol}\NormalTok{(Zs)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Calcualte genomic
+relationship}\label{calcualte-genomic-relationship}
+
+\begin{itemize}
+\tightlist
+\item
+  Compute the second genomic relationship matrix of
+  \href{https://www.ncbi.nlm.nih.gov/pubmed/18946147}{VanRaden (2008)}
+  using the entire markers.
+\item
+  Then add a very small positive constant (e.g., 0.001) to the diagonal
+  elements so that \texttt{G} matrix is invertible. A singular matrix
+  cannot be inverted, which poses computational challenges.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Given matrices x and y as arguments, return a matrix cross{-}product. }
+\CommentTok{\# This is formally equivalent to (but usually slightly faster than) }
+\CommentTok{\# the call t(x) \%*\% y (crossprod) or x \%*\% t(y) (tcrossprod).}
+\NormalTok{G }\OtherTok{\textless{}{-}} \FunctionTok{tcrossprod}\NormalTok{(Zs) }\SpecialCharTok{/} \FunctionTok{ncol}\NormalTok{(Zs)}
+\CommentTok{\# G \textless{}{-} Zs \%*\% t(Zs) /ncol(Zs)}
+\NormalTok{G }\OtherTok{\textless{}{-}}\NormalTok{ G }\SpecialCharTok{+} \FunctionTok{diag}\NormalTok{(n)}\SpecialCharTok{*}\FloatTok{0.001}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{tcrossprod(Zs)} computes the matrix product of Zs and its
+  transpose, yielding an n x n matrix where n is the number of
+  individuals.
+\item
+  Dividing by the number of markers (ncol(Zs)) standardizes the matrix.
+\end{itemize}
+
+\section{Solve MME for GBLUP}\label{solve-mme-for-gblup}
+
+Set up mixed model equations (MME) by fitting the model:
+
+\[\mathbf{y = 1\mu + Zu + e}\]
+
+\begin{itemize}
+\tightlist
+\item
+  where \(\mu\) is the intercept,
+\item
+  \(\mathbf{Z}\) is the incident matrix of individuals,
+\item
+  \(\mathbf{u}\) is the breeding value of the individuals,
+\item
+  and \(\mathbf{e}\) is the residual.
+\end{itemize}
+
+Directly take the inverse of LHS to obtain the solutions for GBLUP.
+Report the estimates of intercept and additive genetic values. Use
+\(\lambda = 1.35\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \FloatTok{1.35} \CommentTok{\# fit$Ve / fit$Vg}
+\NormalTok{Ginv }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(G)}
+\NormalTok{ones }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{ncol=}\DecValTok{1}\NormalTok{, }\AttributeTok{nrow=}\NormalTok{n)}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{diag}\NormalTok{(n)}
+\CommentTok{\# Given matrices x and y as arguments, return a matrix cross{-}product. }
+\CommentTok{\#This is formally equivalent to (but usually slightly faster than) }
+\CommentTok{\#the call t(x) \%*\% y (crossprod) or x \%*\% t(y) (tcrossprod).}
+\NormalTok{LHS1 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(ones), }\FunctionTok{crossprod}\NormalTok{(ones, Z)) }
+\NormalTok{LHS2 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(Z, ones), }\FunctionTok{crossprod}\NormalTok{(Z) }\SpecialCharTok{+}\NormalTok{  Ginv}\SpecialCharTok{*}\NormalTok{lambda)}
+\NormalTok{LHS }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(LHS1, LHS2)}
+\NormalTok{RHS }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{( }\FunctionTok{crossprod}\NormalTok{(ones, y), }\FunctionTok{crossprod}\NormalTok{(Z,y) )}
+\NormalTok{sol }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(LHS, RHS)}
+\FunctionTok{head}\NormalTok{(sol)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]
+## [1,]   2.275528
+## [2,]  12.915583
+## [3,] -15.949010
+## [4,]  18.411816
+## [5,]   4.649033
+## [6,] -23.828528
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(sol)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              [,1]
+## [857,]  -3.877303
+## [858,]   5.900186
+## [859,]   7.631312
+## [860,] -49.125424
+## [861,]  -8.490103
+## [862,] -37.223103
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{\texorpdfstring{R package:
+\texttt{rrBLUP}}{R package: rrBLUP}}\label{r-package-rrblup}
+
+Fit GBLUP by using the \texttt{mixed.solve} function in the
+\href{https://cran.r-project.org/web/packages/rrBLUP/index.html}{rrBLUP}
+R package.
+
+\begin{itemize}
+\tightlist
+\item
+  Report the estimates of intercept and additive genetic values.
+\item
+  Do they agree with previous estimates?
+\item
+  Also, report the estimated genomic heritability and the ratio of
+  variance components \(\lambda = \frac{V_e}{V_A}\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages("rrBLUP")}
+\FunctionTok{library}\NormalTok{(rrBLUP)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{mixed.solve}\NormalTok{(}\AttributeTok{y =}\NormalTok{ y, }\AttributeTok{K=}\NormalTok{G)}
+\CommentTok{\# additive genetic variance}
+\NormalTok{fit}\SpecialCharTok{$}\NormalTok{Vu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 721.3393
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# residual variance}
+\NormalTok{fit}\SpecialCharTok{$}\NormalTok{Ve}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 997.0729
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# intercept }
+\NormalTok{fit}\SpecialCharTok{$}\NormalTok{beta}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.275528
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# additive genetic values}
+\FunctionTok{head}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  12.872001 -16.009856  18.153310   4.307152 -23.873051  16.372003
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  -3.964626   6.047412   7.634191 -48.812717  -8.437586 -36.961484
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# genomic h2}
+\NormalTok{fit}\SpecialCharTok{$}\NormalTok{Vu }\SpecialCharTok{/}\NormalTok{ (fit}\SpecialCharTok{$}\NormalTok{Vu }\SpecialCharTok{+}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{Ve)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4197708
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ratio of variance components }
+\NormalTok{fit}\SpecialCharTok{$}\NormalTok{Ve }\SpecialCharTok{/}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{Vu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.382252
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# plot(x=sol[{-}1], y=fit$u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{RR-BLUP}\label{rr-blup}
+
+Set up mixed model equations (MME) by fitting the model
+\(\mathbf{y = 1b + Zm + e}\), where \(\mathbf{b}\) is the intercept,
+\(\mathbf{Z}\) is the standardized marker genotypes (\texttt{Zs}),
+\(\mathbf{m}\) is the additive marker genetic effects, and
+\(\mathbf{e}\) is the residual.
+
+\begin{align*}
+  \begin{bmatrix}
+    \mathbf{\hat{b}} \\
+    \mathbf{\hat{m}} \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \mathbf{X^{'}R^{-1}X} & \mathbf{X^{'}R^{-1}Z} \\
+    \mathbf{Z^{'}R^{-1}X} & \mathbf{Z^{'}R^{-1}Z} + \mathbf{I} V_e/V_{M_i} \\
+  \end{bmatrix}^{-1}
+  \begin{bmatrix}
+    \mathbf{X^{'}R^{-1}y} \\
+    \mathbf{Z^{'}R^{-1}y} \\
+  \end{bmatrix}
+\end{align*}
+
+Directly take the inverse of LHS to obtain the solutions for
+marker-based GBLUP (RR-BLUP). Report the estimates of intercept and
+marker additive genetic effects. Use \(\lambda = 4326.212\).
+
+--
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \FloatTok{4326.212} \CommentTok{\# fit$Ve / fit$Vu}
+\NormalTok{ones }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{ncol=}\DecValTok{1}\NormalTok{, }\AttributeTok{nrow=}\NormalTok{n)}
+\NormalTok{I }\OtherTok{\textless{}{-}} \FunctionTok{diag}\NormalTok{(m)}
+\NormalTok{LHS1 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(ones), }\FunctionTok{crossprod}\NormalTok{(ones, Zs)) }
+\NormalTok{LHS2 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(Zs, ones), }\FunctionTok{crossprod}\NormalTok{(Zs) }\SpecialCharTok{+}\NormalTok{  I}\SpecialCharTok{*}\NormalTok{lambda)}
+\NormalTok{LHS }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(LHS1, LHS2)}
+\NormalTok{RHS }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{( }\FunctionTok{crossprod}\NormalTok{(ones, y), }\FunctionTok{crossprod}\NormalTok{(Zs,y) )}
+\NormalTok{sol2 }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(LHS, RHS)}
+\FunctionTok{head}\NormalTok{(sol2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             [,1]
+## [1,]  2.27552828
+## [2,]  0.25984118
+## [3,] -0.03032116
+## [4,] -0.12452689
+## [5,]  0.15758584
+## [6,] -0.13104812
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(sol2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 [,1]
+## [3065,]  0.009042828
+## [3066,]  0.065547947
+## [3067,] -0.235825005
+## [3068,]  0.042984822
+## [3069,]  0.102930180
+## [3070,]  0.262549987
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{\texorpdfstring{Use \texttt{rrBLUP}
+package}{Use rrBLUP package}}\label{use-rrblup-package}
+
+Fit RR-BLUP by using the \texttt{mixed.solve} function in the
+\href{https://cran.r-project.org/web/packages/rrBLUP/index.html}{rrBLUP}
+R package.
+
+\begin{itemize}
+\tightlist
+\item
+  Report the estimates of intercept and marker additive genetic effects.
+\item
+  o they agree with the estimates with the manual calculation?
+\item
+  Also, report the ratio of variance components
+  \(\lambda = \frac{V_e}{V_A}\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rrBLUP)}
+\NormalTok{fit2 }\OtherTok{\textless{}{-}} \FunctionTok{mixed.solve}\NormalTok{(}\AttributeTok{y =}\NormalTok{ y, }\AttributeTok{Z=}\NormalTok{Zs)}
+\CommentTok{\# marker additive genetic variance}
+\NormalTok{fit2}\SpecialCharTok{$}\NormalTok{Vu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2350402
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# residual variance}
+\NormalTok{fit2}\SpecialCharTok{$}\NormalTok{Ve}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 997.7947
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# intercept }
+\NormalTok{fit2}\SpecialCharTok{$}\NormalTok{beta}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.275528
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# marker additive genetic effects}
+\FunctionTok{head}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  0.26285584 -0.03075328 -0.12570117  0.16019719 -0.13267752 -0.06454280
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{u)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  0.008232377  0.066259519 -0.237935580  0.042789624  0.103950959
+## [6]  0.264838013
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ratio of variance components }
+\NormalTok{fit2}\SpecialCharTok{$}\NormalTok{Ve }\SpecialCharTok{/}\NormalTok{ fit2}\SpecialCharTok{$}\NormalTok{Vu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4245.208
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# plot(x=sol2[{-}1], y=fit2$u)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{K-fold validation}\label{k-fold-validation}
+
+Repeat GBLUP but treat the first 600 individuals as a training set and
+predict the additive genetic values of the remaining individuals in the
+testing set. - What is the predictive correlation in the testing set?
+Use \(\lambda = 1.348411\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n.trn }\OtherTok{\textless{}{-}} \DecValTok{600}
+\NormalTok{n.tst }\OtherTok{\textless{}{-}} \DecValTok{261}
+\NormalTok{y.trn }\OtherTok{\textless{}{-}}\NormalTok{ y[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n.trn]}
+\NormalTok{y.tst }\OtherTok{\textless{}{-}}\NormalTok{ y[n.trn}\SpecialCharTok{+}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n.tst]}
+\NormalTok{Zs.trn }\OtherTok{\textless{}{-}}\NormalTok{ Zs[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n.trn,]}
+\NormalTok{Zs.tst }\OtherTok{\textless{}{-}}\NormalTok{ Zs[n.trn}\SpecialCharTok{+}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n.tst,]}
+
+\NormalTok{Gtrn }\OtherTok{\textless{}{-}} \FunctionTok{tcrossprod}\NormalTok{(Zs.trn) }\SpecialCharTok{/} \FunctionTok{ncol}\NormalTok{(Zs.trn)}
+\NormalTok{Gtrn }\OtherTok{\textless{}{-}}\NormalTok{ Gtrn }\SpecialCharTok{+} \FunctionTok{diag}\NormalTok{(n.trn)}\SpecialCharTok{*}\FloatTok{0.001}
+\NormalTok{Gtst.trn }\OtherTok{\textless{}{-}} \FunctionTok{tcrossprod}\NormalTok{(Zs.tst, Zs.trn) }\SpecialCharTok{/} \FunctionTok{ncol}\NormalTok{(Zs.tst)}
+\CommentTok{\#Gtrn \textless{}{-} G[1:n.trn, 1:n.trn]}
+\CommentTok{\#Gtst.trn \textless{}{-} G[n.trn+1:n.tst, 1:n.trn]}
+
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \FloatTok{1.348411} \CommentTok{\# fit$Ve / fit$Vu}
+\NormalTok{Ginv.trn }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(Gtrn)}
+\NormalTok{ones }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{ncol=}\DecValTok{1}\NormalTok{, }\AttributeTok{nrow=}\NormalTok{n.trn)}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{diag}\NormalTok{(n.trn)}
+\NormalTok{LHS1 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(ones), }\FunctionTok{crossprod}\NormalTok{(ones, Z)) }
+\NormalTok{LHS2 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(Z, ones), }\FunctionTok{crossprod}\NormalTok{(Z) }\SpecialCharTok{+}\NormalTok{  Ginv.trn}\SpecialCharTok{*}\NormalTok{lambda)}
+\NormalTok{LHS }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(LHS1, LHS2)}
+\NormalTok{RHS }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{( }\FunctionTok{crossprod}\NormalTok{(ones, y.trn), }\FunctionTok{crossprod}\NormalTok{(Z,y.trn) )}
+\NormalTok{sol.trn }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(LHS, RHS)}
+
+\CommentTok{\# prediction}
+\NormalTok{y.hat }\OtherTok{\textless{}{-}}\NormalTok{ Gtst.trn }\SpecialCharTok{\%*\%}\NormalTok{ Ginv.trn }\SpecialCharTok{\%*\%} \FunctionTok{matrix}\NormalTok{(sol.trn[}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\NormalTok{(n.trn}\SpecialCharTok{+}\DecValTok{1}\NormalTok{))])}
+\FunctionTok{cor}\NormalTok{(y.hat, y[(n.trn}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\NormalTok{n])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] 0.4635443
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# plot(y.hat, y[(n.trn+1):n])}
+\end{Highlighting}
+\end{Shaded}
+
+Repeat RR-BLUP but treat the first 600 individuals as a training set and
+predict the additive genetic values of the remaining individuals in the
+testing set. - What is the predictive correlation in the testing set?
+Use \(\lambda = 4326.212\). - Also, compare this predictive correlation
+to the one from GBLUP.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Zs.trn }\OtherTok{\textless{}{-}}\NormalTok{ Zs[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n.trn, ]}
+\NormalTok{Zs.tst }\OtherTok{\textless{}{-}}\NormalTok{ Zs[n.trn}\SpecialCharTok{+}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n.tst, ]}
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \FloatTok{4326.212} \CommentTok{\# fit$Ve / fit$Vu}
+\NormalTok{ones }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{ncol=}\DecValTok{1}\NormalTok{, }\AttributeTok{nrow=}\NormalTok{n.trn)}
+\NormalTok{I }\OtherTok{\textless{}{-}} \FunctionTok{diag}\NormalTok{(m)}
+\NormalTok{LHS1 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(ones), }\FunctionTok{crossprod}\NormalTok{(ones, Zs.trn)) }
+\NormalTok{LHS2 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{crossprod}\NormalTok{(Zs.trn, ones), }\FunctionTok{crossprod}\NormalTok{(Zs.trn) }\SpecialCharTok{+}\NormalTok{  I}\SpecialCharTok{*}\NormalTok{lambda)}
+\NormalTok{LHS }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(LHS1, LHS2)}
+\NormalTok{RHS }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{( }\FunctionTok{crossprod}\NormalTok{(ones, y.trn), }\FunctionTok{crossprod}\NormalTok{(Zs.trn, y.trn) )}
+\NormalTok{sol.trn }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(LHS, RHS)}
+
+\CommentTok{\# prediction}
+\NormalTok{y.hat2 }\OtherTok{\textless{}{-}}\NormalTok{ Zs.tst }\SpecialCharTok{\%*\%} \FunctionTok{matrix}\NormalTok{(sol.trn[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{])}
+\FunctionTok{cor}\NormalTok{(y.hat2, y[(n.trn}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\NormalTok{n])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] 0.4635768
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(y.hat2, y[(n.trn}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\NormalTok{n])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{10.A.1.genomic_selection_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\end{document}
