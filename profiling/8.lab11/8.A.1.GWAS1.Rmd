@@ -142,15 +142,6 @@ __.map__: A text file with no header file, and one line per variant with the fol
 - Position in morgans or centimorgans (optional; also safe to use dummy value of '0')
 - Base-pair coordinate
 
----
-
-# Genotypic data
-
-- `data/RiceDiversity_44K_Genotypes_PLINK/`
-  - sativas413.fam
-  - sativas413.map
-  - sativas413.ped
-- Or download data from: [zipped data](http://ricediversity.org/data/sets/44kgwas/)
 
 --------------------
 ### PLINK PED File format
@@ -172,7 +163,7 @@ __.ped__: Contains no header line, and one line per sample with 6+2V fields wher
 5. request a quick computing node `srun --qos=short --nodes=1 --licenses=common --ntasks=4 --mem 32G --time 6:00:00 --pty bash`
 
 ```{bash, eval=FALSE}
-mkdir largedata
+#mkdir largedata
 cp -r data/RiceDiversity_44K_Genotypes_PLINK largedata/
 
 module load plink/1.90

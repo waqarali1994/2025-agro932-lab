@@ -1,7 +1,7 @@
 ---
 title: "GWAS 2"
 author: "Jinliang Yang"
-date: "04-28-2022"
+date: "05-01-2025"
 output: pdf_document
 ---
 
@@ -9,7 +9,7 @@ output: pdf_document
 
 ````{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE) 
-knitr::opts_knit$set(root.dir=normalizePath('..//')) 
+knitr::opts_knit$set(root.dir=normalizePath('..//..//')) 
 #library(tidyverse)
 ```
 
@@ -50,7 +50,7 @@ srun --qos=short --nodes=1 --licenses=common --ntasks=4 --mem 32G --time 6:00:00
 - Load the `PLINK` module
 
 ```{bash, eval=FALSE}
-module load plink
+module load plink/1.9
 cd largedata/RiceDiversity_44K_Genotypes_PLINK/
 
 # By default, when a limited window report is requested, 
@@ -251,7 +251,7 @@ write.table(pca[,2:5], "pc3.txt", sep="\t", row.names=FALSE,
 # Phenotypic data
 
 ```{r fig.height=5, fig.width=5, message=FALSE, warning=FALSE, eval=FALSE}
-pheno <- read.delim("http://ricediversity.org/data/sets/44kgwas/RiceDiversity_44K_Phenotypes_34traits_PLINK.txt", header=TRUE)
+pheno <- read.delim("data/rice_44K_pheno.txt", header=TRUE)
 
 library(ggplot2)
 ggplot(pheno, aes(x=Plant.height)) + 
