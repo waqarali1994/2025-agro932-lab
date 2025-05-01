@@ -267,7 +267,8 @@ ggplot(pheno, aes(x=Plant.height)) +
 - On HCC, write the `pheno.txt` to the genotypic data folder
 
 ```{r, eval=FALSE}
-pheno <- read.delim("http://ricediversity.org/data/sets/44kgwas/RiceDiversity_44K_Phenotypes_34traits_PLINK.txt", header=TRUE)
+#pheno <- read.delim("http://ricediversity.org/data/sets/44kgwas/RiceDiversity_44K_Phenotypes_34traits_PLINK.txt", header=TRUE)
+pheno <- read.delim("data/rice_44k_pheno.txt", header=TRUE)
 write.table(pheno[, -1:-2], "largedata/RiceDiversity_44K_Genotypes_PLINK/pheno.txt", 
             sep="\t", row.names=FALSE, quote=FALSE, col.names = FALSE)
 ```
